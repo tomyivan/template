@@ -1,12 +1,23 @@
 import { Outlet } from "react-router-dom";
-import { NavBar, SideBar } from "../components";
+import { Header, NavBar, SideBar } from "../components";
+import { useEffect } from "react";
 
 export const MainLayout = () => {
+    useEffect(() => {
+        const html = document.querySelector('html')
+        const theme = localStorage.getItem('theme')
+        theme === 'dark' ? html?.classList.add('dark') : html?.classList.remove('dark')
+    }
+    , [])
     return (
         <>
-            <div className="w-screen h-screen flex flex-row bg-gray-100 bg-teal-50">
+            <div className="main-layout">
                 <SideBar />
-                <NavBar />
+                <div className="main-layout__body">                   
+                    <NavBar />                    
+                    <Header />
+                    <Outlet />
+                </div>
             </div>
 
         </>

@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+/* NavBar theme */
+.main-layout {
+    @apply w-screen h-screen flex flex-row dark:bg-gray-300 bg-teal-50 
+}
+.main-layout__body{
+    @apply flex flex-col flex-grow mx-4 overflow-hidden h-[calc(100vh-1rem)]  
+}
+.navbar__container{
+    @apply bg-gray-50 dark:bg-gray-700  mt-2 h-[40px] shadow-md rounded-xl px-2 transition-all duration-500 ease-in-out
+}
+.navbar__list {
+    @apply flex flex-row gap-4 items-center justify-center md:justify-end h-full p-2 text-gray-700 dark:text-gray-200
+}
+.navbar__list-item {
+    @apply cursor-pointer dark:hover:bg-gray-600 hover:bg-gray-200 p-2 rounded-full
+}
+/* NavBar theme end */
+/* SideBar theme */
+.sidebar__item-active {
+    @apply bg-teal-100 text-teal-600 dark:bg-transparent dark:border-teal-400 dark:border-2 dark:!text-teal-400 
+}
+.sidebar__container {
+    @apply h-screen shadow-xl flex flex-col gap-2 p-4 text-gray-700 transition-all duration-500 ease-in-out dark:bg-gray-800  dark:text-gray-200
+}
+.sidebar__body {
+    @apply flex flex-col text-gray-700  flex-grow h-0
+}
+.sidebar__body-item {
+    @apply flex flex-row gap-4 h-[56px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer dark:hover:bg-transparent hover:dark:border-teal-400 hover:dark:border-2 dark:hover:text-teal-400  dark:text-gray-200
+}
+.sidebar__body__subitem-container {
+    @apply w-[175px] overflow-hidden transition-[max-height] duration-300 ease-in-out 
+}
+.sidebar__body__subitem{
+    @apply flex flex-row gap-4 h-[40px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer dark:hover:bg-transparent hover:dark:border-teal-400 hover:dark:border-2 dark:hover:text-teal-400 dark:text-gray-200
+}
+.sidebar__footer {
+    @apply flex flex-row  items-center gap-4 p-2 text-gray-700 h-[49px] cursor-pointer border border-teal-400 rounded-xl dark:text-teal-400
+}
+/* SideBar theme end */
+@custom-variant dark ( &:where(.dark, .dark *) )

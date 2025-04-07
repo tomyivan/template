@@ -1,20 +1,31 @@
-import { BoxIcon, BusFront, Circle, FormInput, Home, User } from "lucide-react"
+import { User } from "lucide-react"
 import { Header } from "./Header.component"
 import { BodySidebar } from "./Body.components"
-
+import { useState } from "react"
+import { SideBarContent } from "./Content"
 interface SideBarProps {}
 
 export const SideBar: React.FC<SideBarProps> = () => {
+    const [collapse, setCollapse] = useState(false)
+    const handleCollapse = () => {
+        setCollapse(!collapse)
+    }
     return (
-        <div className="h-screen w-[240px] shadow-xl flex flex-col gap-2 p-4 text-gray-700">
-            <Header title="Template" />
-            <BodySidebar   />
-            <footer className="shadow-lg rounded-lg ">
-                <div className="flex flex-row items-center gap-4 p-2 text-gray-700 h-[49px] cursor-pointer border border-teal-400 rounded-xl">
+        <div className={`sidebar__container ${ collapse ? 'w-[90px]' : 'w-[240px]'} `}>
+            <Header title="Template" 
+                handleCollapse={handleCollapse} 
+                isCollapsed={collapse}
+            />
+            <BodySidebar 
+                isCollapsed={collapse}  
+                list={SideBarContent()}
+            />
+            <footer className="shadow-lg rounded-lg overflow-hidden font-bold">
+                <div className={`sidebar__footer ${collapse && 'justify-center'}`}>
                     <div role="icon">
                         <User />
                     </div>
-                    <span>Juan Perez</span>
+                    <span className={`${collapse ? 'hidden':'block'} text-nowrap `}>Juan Perez </span>
                 </div>
             </footer>
         </div>

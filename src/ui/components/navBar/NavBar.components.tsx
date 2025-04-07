@@ -1,25 +1,30 @@
+import { LogOut, Settings, Bell, Sun, Moon } from "lucide-react"
 export const NavBar = () => {
+    const handleTheme = () => {
+        const html = document.querySelector('html')
+        if (html) {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark')
+                localStorage.setItem('theme', 'light')
+            } else {
+                html.classList.add('dark')
+                localStorage.setItem('theme', 'dark')
+            }
+        }
+    }
     return (
-        <nav className="navbar navbar-expand-lg bg-light">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">Navbar</a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link disabled">Disabled</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <nav className="navbar__container">
+            <ul className="navbar__list">
+                <li className="navbar__list-item"
+                    onClick={handleTheme}
+                >
+                    <Sun size={15} className="dark:hidden" />
+                    <Moon size={15} className="hidden dark:block" />
+                </li>
+                <li className="navbar__list-item"><Bell size={15} /></li>
+                <li className="navbar__list-item"><Settings size={15} /></li>
+                <li className="navbar__list-item"><LogOut size={15} /></li>
+            </ul>
         </nav>
     )
 }

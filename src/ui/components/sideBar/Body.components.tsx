@@ -1,67 +1,89 @@
-import { useState } from "react";
-import { Home, FormInput, BoxIcon, Circle, AlarmCheck } from "lucide-react";
-
-export const BodySidebar = () => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
+import { useEffect, useState } from "react";
+import { SideBarList } from "../../../domain";
+import { useNavigate, useLocation } from "react-router-dom";
+interface BodySidebarProps {
+    isCollapsed: boolean;
+    list: SideBarList[];
+}
+export const BodySidebar:React.FC<BodySidebarProps> = ({
+    isCollapsed, list
+}) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState<string>('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const toggleDropdown = (title:string) => {
+        if (isDropdownOpen === title) {
+            setIsDropdownOpen('');
+            return;
+        }
+        setIsDropdownOpen(title);
     };
-
+    useEffect(() => {        
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            const isInsideSubGroup = target.closest('[role="sub-group"]');            
+            if (!isInsideSubGroup) {
+                setIsDropdownOpen("");
+            }
+        };
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
     return (
         <ul
             role="body"
-            className="flex flex-col text-gray-700 overflow-y-auto flex-grow h-0"
+            className={`sidebar__body ${ isCollapsed ? 'overflow-hidden':'overflow-y-auto'} `}
         >
-            <li className="flex flex-row gap-4 h-[56px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                <div role="icon">
-                    <Home />
-                </div>
-                <span>Inicio</span>
-            </li>
-            <li className="flex flex-row gap-4 h-[56px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                <div role="icon">
-                    <FormInput />
-                </div>
-                <span>Formularios</span>
-            </li>
-            <li 
-                onClick={toggleDropdown}
-                className="flex flex-row gap-4 h-[56px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                <div role="icon">
-                    <BoxIcon />
-                </div>
-                <span>Componentes</span>
-            </li>
-            <li
-                role="sub-group"
-                className="w-[207px] flex flex-col justify-end ps-8"
-            >               
-                <ul
-                    className={`w-[175px] overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-                        isDropdownOpen ? "max-h-[200px]" : "max-h-0"
-                    }`}
-                >
-                    <li className="flex flex-row gap-4 h-[40px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                        <div role="icon">
-                            <Circle />
+            {
+                list.map((item) => (
+                    <li key={item.title} className="flex flex-col">
+                        <div
+                            className={`sidebar__body-item ${ location.pathname === item.link && `sidebar__item-active` } ${isCollapsed && 'justify-center'}`}
+                            onClick={item.subItems? () => toggleDropdown(item.title) : 
+                                item.link? () => navigate(item.link as string) : undefined
+                            }
+                            role={item.subItems ? 'sub-group' : 'item'}
+                            
+                        >
+                            <div role="icon">
+                                {item.icon}
+                            </div>
+                            <span className={`${isCollapsed ? 'hidden' : 'block'}`}>{item.title}</span>
                         </div>
-                        <span>Subgrupo</span>
+                
+                        {item.subItems && item.subItems.length > 0 && (
+                            <ul
+
+                                className={`sidebar__body__subitem-container ${ isCollapsed? 'p-2':'ps-8' }
+                                    ${
+                                        isCollapsed
+                                        ? isDropdownOpen === item.title
+                                            ? "fixed left-[70px] mt-0 shadow-xl dark:bg-gray-700 rounded-lg z-50 block"
+                                            : "hidden"
+                                        : isDropdownOpen === item.title
+                                        ? "max-h-[200px]"
+                                        : "max-h-0"
+                                    }
+                                `}
+                                id={item.title}
+                                role="sub-group"
+                            >
+                                {item.subItems.map((subItem, subIndex) => (
+                                    <li key={subItem.title + subIndex} className="sidebar__body__subitem"
+                                        onClick={subItem.link? () => navigate(subItem.link as string) : undefined}
+                                    >
+                                        <div role="icon">{subItem.icon}</div>
+                                        <span>{subItem.title}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </li>
-                    <li className="flex flex-row gap-4 h-[40px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                        <div role="icon">
-                            <Circle />
-                        </div>
-                        <span>Subgrupo 1</span>
-                    </li>
-                </ul>
-            </li>
-            <li className="flex flex-row gap-4 h-[56px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer transition-all duration-300 ease-in-out">
-                <div role="icon">
-                    <AlarmCheck />
-                </div>
-                <span>Alertas</span>
-            </li>
+                ))
+            }
+
         </ul>
     );
 };
