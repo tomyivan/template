@@ -37,7 +37,11 @@
     @apply flex flex-row gap-4 h-[40px] font-semibold items-center p-2 hover:bg-teal-100 hover:text-teal-600 rounded-lg cursor-pointer dark:hover:bg-transparent hover:dark:border-teal-400 hover:dark:border-2 dark:hover:text-teal-400 dark:text-gray-200
 }
 .sidebar__footer {
-    @apply flex flex-row  items-center gap-4 p-2 text-gray-700 h-[49px] cursor-pointer border border-teal-400 rounded-xl dark:text-teal-400
+    @apply flex flex-row  items-center gap-4 p-2 text-gray-600 h-[49px] cursor-pointer border border-teal-400 rounded-xl dark:text-teal-400
+}
+/* Header-(navigation bar) */
+.navigation-bar__container {
+    @apply flex flex-row gap-4 items-center justify-between h-[27px] my-4 text-gray-600 px-4
 }
 /* SideBar theme end */
 @custom-variant dark ( &:where(.dark, .dark *) )

@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom"
 import {  useEffect, useState } from "react";
-import { SideBarContent } from "../sideBar/Content";
+import { Link } from "react-router-dom";
+
 export const Header = () => {
     const location = useLocation();
     const [ title, setTitle ] = useState<string>('')
@@ -13,36 +14,37 @@ export const Header = () => {
         console.log(path)
         const newTitle = path.length > 0 ? path[path.length - 1] : 'Inicio';
         setTitle(newTitle.charAt(0).toUpperCase() + newTitle.slice(1));
-        for( const item of SideBarContent()){
-            if (item.link === location.pathname) {
-                setNavigation([{ label: item.title, link: item.link }])
+        setNavigation( path.map((item, index) => {
+            return {
+                label: item.charAt(0).toUpperCase() + item.slice(1),
+                link: '/' + path.slice(0, index + 1).join('/')
             }
-            if (item.subItems) {
-                for (const subItem of item.subItems) {
-                    if (subItem.link === location.pathname) {
-                        setNavigation([
-                            { label: item.title, link: item.link },
-                            { label: subItem.title, link: subItem.link }
-                        ])
-                    }
-                }
-            }
-        }
+        }));
         console.log(navigation);
+        // console.log(newNavigation);
     }
     , [location.pathname]);
     return (
-        <ul className="flex flex-row gap-4 items-center justify-between h-[27px] my-4 text-gray-700">
-            <li className="text-2xl font-bold ">{title}</li>
+        <ul className="navigation-bar__container">
+            <li className="text-2xl font-bold">{title}</li>
             <li>
-                <ul className="flex flex-row gap-2 items-center ">
+                <ul className="flex flex-row gap-2 items-center font-semibold">
                     {
-                        navigation.map((item, index) => (
+                        navigation.length === 0 ?
+                            <span className="text-gray-600">Inicio</span> :  navigation.map((item, index) => (
                             <li key={index} className="flex flex-row gap-2 items-center">
-                                <span className="text-teal-600"> {item.label}</span>
+                               { !(navigation.length - 1  === index )? <Link to={item.link ?? ''} className={` text-teal-700 hover:underline  transition-colors duration-300 ease-in-out`}>
+                                    {item.label} /
+                                </Link>:
+                                    <span className="text-gray-600">
+                                        {item.label}
+                                    </span>
+                                }
+                                {/* <span className="text-teal-600"> {item.label}</span> */}
                             </li>
                         ))
                     }
+                    
                 </ul>
             </li>
         </ul>
