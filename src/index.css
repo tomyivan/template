@@ -39,9 +39,100 @@
 .sidebar__footer {
     @apply flex flex-row  items-center gap-4 p-2 text-gray-600 h-[49px] cursor-pointer border border-teal-400 rounded-xl dark:text-teal-400
 }
+/* SideBar theme end */
 /* Header-(navigation bar) */
 .navigation-bar__container {
     @apply flex flex-row gap-4 items-center justify-between h-[27px] my-4 text-gray-600 px-4
 }
-/* SideBar theme end */
+/* Header-(navigation bar) end */
+
+/* Components theme */
+/* Button theme */
+.btn {
+    @apply relative overflow-hidden font-semibold py-2 px-4 rounded  text-gray-700 shadow hover:opacity-80
+}
+.btn-primary {
+    @apply bg-blue-400 text-gray-100
+}
+.btn-secondary {
+    @apply bg-gray-500 text-gray-100
+}   
+.btn-warning {
+    @apply bg-yellow-500 text-gray-100
+}
+.btn-danger {
+    @apply bg-red-500 text-gray-100
+}
+.btn-success {
+    @apply bg-green-400 text-gray-100
+}
+.btn-light {
+    @apply bg-gray-100 text-gray-700
+}
+.btn-dark {
+    @apply bg-gray-700 text-gray-100
+}
+.btn-info {
+    @apply bg-cyan-400 text-gray-100
+}
+.btn-outline-primary {
+    @apply bg-transparent border-2 border-blue-400 text-blue-400 hover:bg-[rgba(215,227,240,0.1)]
+}
+.btn-outline-secondary {
+    @apply bg-transparent border-2 border-gray-500 text-gray-500  hover:bg-[rgba(223,239,255,0.28)]
+}
+.btn-outline-warning {
+    @apply bg-transparent border-2 border-yellow-500 text-yellow-500  hover:bg-[rgba(225,226,210,0.54)]
+}
+.btn-outline-danger {
+    @apply bg-transparent border-2 border-red-500 text-red-500 hover:bg-[rgba(241,223,220,0.18)]
+}
+.btn-outline-success {
+    @apply bg-transparent border-2 border-green-400 text-green-400 hover:bg-[rgba(223,255,237,0.19)]
+}
+.btn-outline-light {
+    @apply bg-transparent border-2 border-gray-100 text-gray-100 hover:bg-[rgba(234,241,248,0.54)]
+}
+.btn-outline-dark {
+    @apply bg-transparent border-2 border-gray-700 text-gray-700 hover:bg-[rgba(228,228,228,0.21)]
+}
+.btn-outline-info {
+    @apply bg-transparent border-2 border-cyan-400 text-cyan-400  hover:bg-[rgba(217,236,240,0.21)]
+}
+.btn-sm {
+    @apply text-sm px-2 py-1
+}
+.btn-lg {
+    @apply text-lg px-4 py-2
+}
+.btn-disabled {
+    @apply cursor-not-allowed hover:opacity-70 bg-gray-400 text-gray-600 opacity-70
+}
+/* Button theme end */
+/* Input theme */
+.inp-normal {
+    @apply  border rounded-md border-gray-600
+}
+.inp-filled {
+    @apply p-2 border rounded-md border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500
+}
+.inp-outline {
+    @apply p-2 border-b-2 border-gray-600 outline-none focus:border-blue-500
+}
+.inp_collapse-normal {
+    @apply w-full py-3 px-2 border-2 border-gray-500 focus:outline-none text-gray-700 focus:border-blue-500 rounded-md transition-all duration-300 ease-in-out
+}
+.inp_collapse-outline {
+    @apply p-2 border-b-2 border-gray-600 outline-none focus:border-blue-500
+}
+.inp_label_collapse {
+    @apply absolute left-2 top-2 px-2 text-gray-600 dark:bg-gray-300 bg-teal-50 font-semibold
+}
+/* form theme */
+.form-row {
+    @apply flex flex-col gap-2 md:flex-row md:gap-4 
+}
+/* form theme end */
+/* Input theme  end*/
+/* Components theme */
 @custom-variant dark ( &:where(.dark, .dark *) )
