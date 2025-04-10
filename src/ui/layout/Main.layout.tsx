@@ -13,9 +13,9 @@ export const MainLayout = () => {
         <>
             <div className="main-layout">
                 <SideBar />
-                <div className="main-layout__body">                   
+                <div className="main-layout__body scrollbar-gutter-stable">                   
                     <NavBar />                    
-                    <Header />
+                    <Header />                    
                     <Outlet />
                 </div>
             </div>

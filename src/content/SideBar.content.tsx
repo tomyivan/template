@@ -1,5 +1,10 @@
-import { Box, FormInput, Home } from "lucide-react"
-import { SideBarList } from "../../../domain"
+import { Box, Component, FormInput, Home, Table2 } from "lucide-react"
+import { SideBarList } from "../domain"
+import dayjs from "dayjs"
+ const date =  {
+        start: dayjs(`${dayjs().format('YYYY-MM')}-01`),
+        end: dayjs(`${dayjs().endOf('month')}`)
+}
 export const SideBarContent= ():SideBarList[]  => [
     {
         title: 'Inicio',
@@ -25,10 +30,17 @@ export const SideBarContent= ():SideBarList[]  => [
                 icon: <Box />,
                 link: '/componentes/botones',
             },
+            {
+                title: 'Modal',
+                icon: <Component />,
+                link: '/componentes/modal',
+            },
         ]
     },
 {
-        title: 'Formularios2',
-        icon: <FormInput />,
+        title: 'Tablas',
+        icon: <Table2 />,
+        link: '/tablas',
+        query: `?de=${date.start.format('YYYY-MM-DD')}&hasta=${date.end.format('YYYY-MM-DD')}`,
     },
 ]

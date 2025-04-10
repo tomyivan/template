@@ -11,7 +11,6 @@ export const Header = () => {
     }[]>([])
     useEffect(() => {
         const path = location.pathname.split('/').filter((item) => item !== '');
-        console.log(path)
         const newTitle = path.length > 0 ? path[path.length - 1] : 'Inicio';
         setTitle(newTitle.charAt(0).toUpperCase() + newTitle.slice(1));
         setNavigation( path.map((item, index) => {
@@ -20,8 +19,6 @@ export const Header = () => {
                 link: '/' + path.slice(0, index + 1).join('/')
             }
         }));
-        console.log(navigation);
-        // console.log(newNavigation);
     }
     , [location.pathname]);
     return (

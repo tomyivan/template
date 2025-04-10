@@ -1,4 +1,4 @@
 export interface DataSelect {
-    id: number;
+    id: number | string;
     name: string;
 }

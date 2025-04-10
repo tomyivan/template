@@ -1,5 +1,5 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import { HomePage, ErrorPage, FormPage, InputsPage, ButtonsPage } from "../pages";
+import { HomePage, ErrorPage, FormPage, InputsPage, ButtonsPage, TablePage, ModalPage } from "../pages";
 import { MainLayout } from "../layout/Main.layout";
 
 
@@ -21,6 +21,12 @@ export const router = createBrowserRouter([
             },{
                 path: "/componentes/botones",
                 element: <ButtonsPage />,
+            },{        
+                path: "/componentes/modal",
+                element: <ModalPage />
+            },{
+                path: "/tablas",
+                element: <TablePage />,
             }
         ]
     }

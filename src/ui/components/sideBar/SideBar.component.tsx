@@ -2,7 +2,7 @@ import { User } from "lucide-react"
 import { Header } from "./Header.component"
 import { BodySidebar } from "./Body.components"
 import { useState } from "react"
-import { SideBarContent } from "./Content"
+import { SideBarContent } from "../../../content/SideBar.content"
 interface SideBarProps {}
 
 export const SideBar: React.FC<SideBarProps> = () => {

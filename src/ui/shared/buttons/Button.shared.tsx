@@ -10,6 +10,8 @@ interface ButtonProps {
     icon?: React.ReactNode;
     onClick?: () => void;
     type?: "button" | "submit" | "reset";
+    fullRounded?: boolean;
+    title?: string;
 }
 export const Button: React.FC<ButtonProps> = ({
     variant,
@@ -20,6 +22,8 @@ export const Button: React.FC<ButtonProps> = ({
     icon,
     onClick,
     type = "button",
+    fullRounded = false,
+    title,
 }) => {
     gsap.registerPlugin(useGSAP);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -61,9 +65,10 @@ export const Button: React.FC<ButtonProps> = ({
         <button
             ref={buttonRef}
             onClick={handleClick}
-            className={`btn ${widthFull && 'w-full'} ${variant} ${size} ${disabled ? "btn-disabled" : "cursor-pointer"} `}
+            className={`btn ${widthFull && 'w-full'} ${variant} ${size} ${disabled ? "btn-disabled" : "cursor-pointer"} ${fullRounded ? `rounded-full` :`rounded`} `}
             disabled={disabled}
             type={type}
+            title={ title }
         >
             { icon ? 
                 <span className="flex flex-row gap-2 items-center">

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { DataSelect } from "../../../domain";
-import { FieldValues, RegisterOptions, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldValues, } from "react-hook-form";
 
 interface InputSelectProps<T extends FieldValues> {
     data: DataSelect[];
@@ -8,11 +8,11 @@ interface InputSelectProps<T extends FieldValues> {
     placeholder?: string;
     variant?: "inp-outline" | "inp-filled" | "inp-normal";
     disabled?: boolean;
-    register: UseFormRegister<T>;
-    name: keyof T;
-    options?: RegisterOptions<T[keyof T]>;
-    errors: any;
-    setValue: UseFormSetValue<T>;
+    value?: DataSelect | null;
+    onChange?: (value:DataSelect) => void;
+    onBlur?: () => void;
+    name?: keyof T;
+    isValid?: boolean;
 }
 
 export const InputSelect = <T extends FieldValues>({
@@ -21,50 +21,57 @@ export const InputSelect = <T extends FieldValues>({
     placeholder,
     variant = "inp-normal",
     disabled = false,
-    register,
+    onChange,
+    onBlur,
+    value = null,
     name,
-    options,
-    errors,
-    setValue
+    isValid = false
 }: InputSelectProps<T>) => {
     const [isOpen, setIsOpen] = useState(false);
     const [filteredData, setFilteredData] = useState<DataSelect[]>(data);
-    const [ selectedItem, setSelectedItem ] = useState<DataSelect | null>(null);
     const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
-    const dropdownRef = useRef<HTMLDivElement>(null); // Ref para el contenedor del dropdown
-
-    // Cerrar dropdown al hacer clic fuera
+    const dropdownRef = useRef<HTMLInputElement>(null);
+    const [inputValue, setInputValue] = useState<string>('');
+    const [dropdownDirection, setDropdownDirection] = useState<"up" | "down">("down")
+    const divRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        const handleClickOutside = (event: MouseEvent) => {    
+            if (divRef.current && !divRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
             }
         };
 
         document.addEventListener("mousedown", handleClickOutside);
+        if(divRef.current) {
+            const inputRect = divRef.current.getBoundingClientRect();
+                const spaceBelow = window.innerHeight - inputRect.bottom;
+                const spaceAbove = inputRect.top;
+                const dropdownHeight = 256;
+                setDropdownDirection(spaceBelow >= dropdownHeight || spaceBelow >= spaceAbove ? "down" : "up");
+        }
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.toLowerCase();
+        const newValue = e.target.value.toLowerCase();
         const newData = data.filter((item) =>
-            item.name.toLowerCase().includes(value)
+            item.name.toLowerCase().includes(newValue)
         );
         if( !isOpen ) {
             setIsOpen(true);
         }
         setFilteredData(newData);
-        setSelectedItem( { id: -1, name: value } )
         setHighlightedIndex(-1);
+        onChange?.( { id: -1, name: newValue } )
+        setInputValue(newValue  );
     };
 
     const selectItem = (item: DataSelect) => {
-        setSelectedItem(item);
-        // setText(item.name);
-        setIsOpen(false);
         setFilteredData(data);
+        onChange?.(item);
+        setInputValue(item.name);
+        setIsOpen(false);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -88,38 +95,45 @@ export const InputSelect = <T extends FieldValues>({
     };
 
     const handleBlur = () => {
-        const valid = filteredData.some((item) => item.name === selectedItem?.name);        
-        !valid && setSelectedItem(null);
-        setValue(name as any, selectedItem as any);
+        const valid = filteredData.some((item) => item.name === ( value?.name ?? inputValue ));       
+        if(!valid){ 
+            setInputValue('');
+            onChange?.( null as any );
+        }
     };
-
     return (
-        <div ref={dropdownRef} className="relative w-full">
+        <div  className="relative w-full" ref={divRef}>
             {label && (
-                <label className={`block text-gray-700 font-semibold mb-2 ${errors[name] && 'text-red-500'}`} htmlFor="input">
+                <label className={`block text-gray-700 font-semibold mb-2 ${ isValid && `text-red-500`}`} htmlFor={String(name)}>
                     {label}
                 </label>
             )}
             <input
+                ref={dropdownRef}
+                name={String(name)}
                 type="text"
-                className={`${variant} ${disabled && "cursor-not-allowed bg-gray-200 opacity-40"} w-full ${errors[name] && '!border-red-500'}`}
+                className={`${variant} ${disabled && "cursor-not-allowed bg-gray-200 opacity-40"} ${ isValid && '!border-red-500' } w-full h-[40px]`}
                 placeholder={placeholder}
                 disabled={disabled}
-                value={selectedItem ? selectedItem.name : ""}
+                value={ String(value?.name ?? inputValue) }
                 onFocus={() => setIsOpen(true)}
-                onKeyDown={handleKeyDown}
-                {...register(name as any, { ...options as any, 
-                    onChange: handleChange ,  
-                    onBlur: handleBlur 
-                })}
+                onKeyDown={handleKeyDown}              
                 autoComplete="off"
+                onChange={handleChange}
+                onBlur={() =>  {
+                    handleBlur();
+                    onBlur && onBlur();
+                }}
+
             />
             {isOpen && filteredData.length > 0 && (
-                <ul className="absolute z-10 w-full bg-gray-50 max-h-96 overflow-auto text-gray-700 border border-gray-300 rounded-md shadow-lg">
+                <ul className={`absolute z-10 w-full bg-gray-50 max-h-64 overflow-auto text-gray-700 border border-gray-300 rounded-md shadow-lg
+                ${dropdownDirection === "up" && "bottom-10" }
+                `}>
                     {filteredData.map((item, index) => (
                         <li
                             key={item.id}
-                            className={`cursor-pointer p-2 hover:bg-gray-200 ${highlightedIndex === index && "bg-gray-100"}`}
+                            className={`cursor-pointer p-1.5 hover:bg-gray-200 ${highlightedIndex === index && "bg-gray-100"}`}
                             onClick={() => selectItem(item)}
                             data-id={item.id}
                         >
@@ -127,12 +141,7 @@ export const InputSelect = <T extends FieldValues>({
                         </li>
                     ))}
                 </ul>
-            )}
-            {errors[name] && (
-                <small className="text-red-600 font-semibold">
-                    {errors[name]?.message || "Este campo es requerido"}
-                </small>
-            )}
+            )}            
         </div>
     );
 };

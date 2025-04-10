@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
+@layer utilities {
+    .scrollbar-gutter-stable {
+        scrollbar-gutter: stable;
+    }
+}
 /* NavBar theme */
 .main-layout {
     @apply w-screen h-screen flex flex-row dark:bg-gray-300 bg-teal-50 
 }
 .main-layout__body{
-    @apply flex flex-col flex-grow mx-4 overflow-hidden h-[calc(100vh-1rem)]  
+    @apply flex flex-col flex-grow ms-4 overflow-y-auto h-[100vh]
 }
 .navbar__container{
     @apply bg-gray-50 dark:bg-gray-700  mt-2 h-[40px] shadow-md rounded-xl px-2 transition-all duration-500 ease-in-out
@@ -39,6 +44,9 @@
 .sidebar__footer {
     @apply flex flex-row  items-center gap-4 p-2 text-gray-600 h-[49px] cursor-pointer border border-teal-400 rounded-xl dark:text-teal-400
 }
+.sidebar__subgroups-collapse {
+    @apply fixed left-[70px] mt-0 shadow-xl dark:bg-gray-700 rounded-lg z-50 block bg-teal-50
+}
 /* SideBar theme end */
 /* Header-(navigation bar) */
 .navigation-bar__container {
@@ -49,7 +57,7 @@
 /* Components theme */
 /* Button theme */
 .btn {
-    @apply relative overflow-hidden font-semibold py-2 px-4 rounded  text-gray-700 shadow hover:opacity-80
+    @apply relative overflow-hidden font-semibold py-2 px-4   text-gray-700 shadow hover:opacity-80
 }
 .btn-primary {
     @apply bg-blue-400 text-gray-100
@@ -76,28 +84,28 @@
     @apply bg-cyan-400 text-gray-100
 }
 .btn-outline-primary {
-    @apply bg-transparent border-2 border-blue-400 text-blue-400 hover:bg-[rgba(215,227,240,0.1)]
+    @apply bg-transparent border border-blue-400 text-blue-400 hover:bg-[rgba(215,227,240,0.1)]
 }
 .btn-outline-secondary {
-    @apply bg-transparent border-2 border-gray-500 text-gray-500  hover:bg-[rgba(223,239,255,0.28)]
+    @apply bg-transparent border border-gray-500 text-gray-500  hover:bg-[rgba(223,239,255,0.28)]
 }
 .btn-outline-warning {
-    @apply bg-transparent border-2 border-yellow-500 text-yellow-500  hover:bg-[rgba(225,226,210,0.54)]
+    @apply bg-transparent border border-yellow-500 text-yellow-500  hover:bg-[rgba(225,226,210,0.54)]
 }
 .btn-outline-danger {
-    @apply bg-transparent border-2 border-red-500 text-red-500 hover:bg-[rgba(241,223,220,0.18)]
+    @apply bg-transparent border border-red-500 text-red-500 hover:bg-[rgba(241,223,220,0.18)]
 }
 .btn-outline-success {
-    @apply bg-transparent border-2 border-green-400 text-green-400 hover:bg-[rgba(223,255,237,0.19)]
+    @apply bg-transparent border border-green-400 text-green-400 hover:bg-[rgba(223,255,237,0.19)]
 }
 .btn-outline-light {
-    @apply bg-transparent border-2 border-gray-100 text-gray-100 hover:bg-[rgba(234,241,248,0.54)]
+    @apply bg-transparent border border-gray-100 text-gray-100 hover:bg-[rgba(234,241,248,0.54)]
 }
 .btn-outline-dark {
-    @apply bg-transparent border-2 border-gray-700 text-gray-700 hover:bg-[rgba(228,228,228,0.21)]
+    @apply bg-transparent border border-gray-700 text-gray-700 hover:bg-[rgba(228,228,228,0.21)]
 }
 .btn-outline-info {
-    @apply bg-transparent border-2 border-cyan-400 text-cyan-400  hover:bg-[rgba(217,236,240,0.21)]
+    @apply bg-transparent border border-cyan-400 text-cyan-400  hover:bg-[rgba(217,236,240,0.21)]
 }
 .btn-sm {
     @apply text-sm px-2 py-1
@@ -105,19 +113,22 @@
 .btn-lg {
     @apply text-lg px-4 py-2
 }
+.btn-md {
+    @apply px-2 py-2
+}
 .btn-disabled {
     @apply cursor-not-allowed hover:opacity-70 bg-gray-400 text-gray-600 opacity-70
 }
 /* Button theme end */
 /* Input theme */
 .inp-normal {
-    @apply  border rounded-md border-gray-600
+    @apply px-2 border rounded-md border-gray-600
 }
 .inp-filled {
-    @apply p-2 border rounded-md border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500
+    @apply p-2 border rounded-md border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 h-[40px]
 }
 .inp-outline {
-    @apply p-2 border-b-2 border-gray-600 outline-none focus:border-blue-500
+    @apply p-2 border-b-2 border-gray-600 outline-none focus:border-blue-500 h-[40px]
 }
 .inp_collapse-normal {
     @apply w-full py-3 px-2 border-2 border-gray-500 focus:outline-none text-gray-700 focus:border-blue-500 rounded-md transition-all duration-300 ease-in-out

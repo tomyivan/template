@@ -1,15 +1,14 @@
 import { Form } from "../../components"
-import { Input, InputSelect } from "../../shared"
+import { Input, InputSelect2 } from "../../shared"
 import { SubmitHandler, useForm, useFieldArray } from "react-hook-form"
 import { FormTest } from "../../../domain"
 export const FormPage = () => {
-    const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<FormTest>()
+    const { register, handleSubmit, control, formState: { errors } } = useForm<FormTest>()
     const onSubmit: SubmitHandler<FormTest> = async (data) => {
-        console.log(data)
         return true
     }
     return (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 px-2">
             <div className="w-1/2">
                 <Form 
                     onSubmit={handleSubmit(onSubmit)}
@@ -57,14 +56,13 @@ export const FormPage = () => {
                                 required: 'Campo requerido',                       
                             }}
                         />
-                        <InputSelect
+                        <InputSelect2
                             label="Label"
                             placeholder="Placeholder"   
-                            variant="inp-filled"                    
-                            register={register}
+                            variant="inp-filled"                                          
                             name="category"
                             errors={errors}
-                            setValue={setValue}
+                            control={control}
                             data={
                                 [
                                     { id: 1, name: 'Option 1' },

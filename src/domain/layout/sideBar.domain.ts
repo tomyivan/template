@@ -4,4 +4,5 @@ export interface SideBarList {
     subItems?: SideBarList[];
     drowpdown?: () => void;
     link?: string;
+    query?: string;
 }

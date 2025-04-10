@@ -42,7 +42,7 @@ export const BodySidebar:React.FC<BodySidebarProps> = ({
                         <div
                             className={`sidebar__body-item ${ location.pathname === item.link && `sidebar__item-active` } ${isCollapsed && 'justify-center'}`}
                             onClick={item.subItems? () => toggleDropdown(item.title) : 
-                                item.link? () => navigate(item.link as string) : undefined
+                                item.link? () => navigate(`${item.link}${item.query ?? ''}`) : undefined
                             }
                             role={item.subItems ? 'sub-group' : 'item'}
                             
@@ -60,19 +60,25 @@ export const BodySidebar:React.FC<BodySidebarProps> = ({
                                     ${
                                         isCollapsed
                                         ? isDropdownOpen === item.title
-                                            ? "fixed left-[70px] mt-0 shadow-xl dark:bg-gray-700 rounded-lg z-50 block"
+                                            ? "sidebar__subgroups-collapse"
                                             : "hidden"
                                         : isDropdownOpen === item.title
                                         ? "max-h-[200px]"
                                         : "max-h-0"
                                     }
                                 `}
+
                                 id={item.title}
                                 role="sub-group"
                             >
                                 {item.subItems.map((subItem, subIndex) => (
                                     <li key={subItem.title + subIndex} className="sidebar__body__subitem"
-                                        onClick={subItem.link? () => navigate(subItem.link as string) : undefined}
+                                        onClick={ () => {
+                                            if (subItem.link) {
+                                                navigate(`${subItem.link}${item.query ?? ''}`);
+                                            }
+                                            setIsDropdownOpen('');
+                                        }}
                                     >
                                         <div role="icon">{subItem.icon}</div>
                                         <span>{subItem.title}</span>
