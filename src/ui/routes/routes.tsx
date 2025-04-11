@@ -1,5 +1,5 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import { HomePage, ErrorPage, FormPage, InputsPage, ButtonsPage, TablePage, ModalPage } from "../pages";
+import { HomePage, ErrorPage, FormPage, InputsPage, ButtonsPage, TablePage, ModalPage, AlertPage } from "../pages";
 import { MainLayout } from "../layout/Main.layout";
 
 
@@ -24,6 +24,9 @@ export const router = createBrowserRouter([
             },{        
                 path: "/componentes/modal",
                 element: <ModalPage />
+            },{
+                path: "/componentes/alerta",
+                element: <AlertPage />,
             },{
                 path: "/tablas",
                 element: <TablePage />,

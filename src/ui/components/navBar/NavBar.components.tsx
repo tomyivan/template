@@ -21,7 +21,9 @@ export const NavBar = () => {
                     <Sun size={15} className="dark:hidden" />
                     <Moon size={15} className="hidden dark:block" />
                 </li>
-                <li className="navbar__list-item"><Bell size={15} /></li>
+                <li className="navbar__list-item relative"> <Bell size={15} /> 
+                    <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+                </li>
                 <li className="navbar__list-item"><Settings size={15} /></li>
                 <li className="navbar__list-item"><LogOut size={15} /></li>
             </ul>

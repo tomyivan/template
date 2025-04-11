@@ -63,18 +63,6 @@ export const columns = ({
             accessorKey: 'state',
             header: 'Estado',
             size: 100,
-           
-            // header: ({ column }) => (
-            //     <div>
-            //         <span>Estado</span>
-            //         <input
-            //             type="text"
-            //             placeholder="Buscar..."
-            //             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
-            //             onChange={(e) => column.setFilterValue(e.target.value)}
-            //         />
-            //     </div>
-            // ),
         },
         {
             accessorKey: 'actions',

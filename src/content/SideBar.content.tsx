@@ -1,4 +1,4 @@
-import { Box, Component, FormInput, Home, Table2 } from "lucide-react"
+import { AlertCircle, Box, Component, FormInput, Home, Table2 } from "lucide-react"
 import { SideBarList } from "../domain"
 import dayjs from "dayjs"
  const date =  {
@@ -34,6 +34,11 @@ export const SideBarContent= ():SideBarList[]  => [
                 title: 'Modal',
                 icon: <Component />,
                 link: '/componentes/modal',
+            },
+            {
+                title: 'Alerta',
+                icon: <AlertCircle />,
+                link: '/componentes/alerta',
             },
         ]
     },
