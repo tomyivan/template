@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
-import { Header, NavBar, SideBar } from "../components";
-import { useEffect } from "react";
+import { Header, NavBar, RightBar, SideBar } from "../components";
+import { useEffect, useState } from "react";
 
 export const MainLayout = () => {
+    const [showRightBar, setShowRightBar] = useState(false)
     useEffect(() => {
         const html = document.querySelector('html')
         const theme = localStorage.getItem('theme')
@@ -14,10 +15,16 @@ export const MainLayout = () => {
             <div className="main-layout">
                 <SideBar />
                 <div className="main-layout__body scrollbar-gutter-stable">                   
-                    <NavBar />                    
+                    <NavBar 
+                        openNotify={() => setShowRightBar(!showRightBar)}
+                    />                    
                     <Header />                    
                     <Outlet />
                 </div>
+                <RightBar 
+                    isOpen={showRightBar} 
+                    handleHidden={() => setShowRightBar(!showRightBar)}
+                />
             </div>
 
         </>

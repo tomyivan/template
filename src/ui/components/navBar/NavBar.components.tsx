@@ -1,5 +1,10 @@
 import { LogOut, Settings, Bell, Sun, Moon } from "lucide-react"
-export const NavBar = () => {
+interface NavBarProps {
+    openNotify: () => void
+}
+export const NavBar:React.FC<NavBarProps> = ({
+    openNotify
+}) => {
     const handleTheme = () => {
         const html = document.querySelector('html')
         if (html) {
@@ -21,7 +26,7 @@ export const NavBar = () => {
                     <Sun size={15} className="dark:hidden" />
                     <Moon size={15} className="hidden dark:block" />
                 </li>
-                <li className="navbar__list-item relative"> <Bell size={15} /> 
+                <li className="navbar__list-item relative" onClick={openNotify}> <Bell size={15} /> 
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
                 </li>
                 <li className="navbar__list-item"><Settings size={15} /></li>

@@ -8,3 +8,4 @@ export { DateFilter } from "./filter/DateFilter.component";
 export { Modal } from "./modal/Modal.components";
 export { Alert } from "./alert/Alert.component";
 export { ToastContainer } from "./alert/Toast.component";
+export { RightBar } from "./rightBar/RightBar.componentes";
