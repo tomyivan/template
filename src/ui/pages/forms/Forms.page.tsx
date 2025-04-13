@@ -1,6 +1,6 @@
 import { Form } from "../../components"
 import { Input, InputSelect2 } from "../../shared"
-import { SubmitHandler, useForm, useFieldArray } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { FormTest } from "../../../domain"
 export const FormPage = () => {
     const { register, handleSubmit, control, formState: { errors } } = useForm<FormTest>()

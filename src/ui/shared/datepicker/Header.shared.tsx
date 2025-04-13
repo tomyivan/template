@@ -11,7 +11,7 @@ export  const HeaderDatePicker:React.FC<HeaderDatePickerProps> = ({
       <div className="flex justify-between items-center p-2 border-b">
         <span
           onClick={() => setCurrentMonth(currentMonth.subtract(1, "month"))}
-          className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+          className="p-2 rounded-full hover:bg-gray-200 cursor-pointer "
         >
           <ChevronLeft size={20} />
         </span>
