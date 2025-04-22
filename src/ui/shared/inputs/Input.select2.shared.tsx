@@ -4,8 +4,11 @@ import { Control, Controller, FieldValues, RegisterOptions } from "react-hook-fo
 interface InputSelectProps<T extends FieldValues> {
     control: Control<any>,
     name: keyof T;
-    options: RegisterOptions,
-    errors: any,
+    options?: RegisterOptions,
+    errors?: {
+        isValid: boolean;
+        message?: string;
+    };
     label: string,
     placeholder?: string,
     isDisabled?:boolean,
@@ -29,19 +32,20 @@ export const InputSelect2 =<T extends FieldValues>({
                 control={control}
                 name={name as string}
                 render={({ field }) => (
-                    <InputSelect                                    
+                    <InputSelect  
+
                         {...field}
                         data={ data }
                         label={label}
                         placeholder={placeholder}
                         variant={variant}
                         disabled={isDisabled}
-                        isValid={Boolean(errors[name])}                   
+                        isValid={errors?.isValid}                   
                     />
                 )}
                 rules={options}
             />
-            {errors[name] && <small className="text-red-600 font-semibold">{ errors[name]?.message === ''? `Este campo es requerido` : errors[name]?.message}</small>}
+            {errors?.isValid && <small className="text-red-600 font-semibold">{ !errors?.message || errors?.message === ''? `Este campo es requerido` : errors?.message}</small>}
         </div>
     )
 }

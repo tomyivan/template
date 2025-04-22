@@ -40,7 +40,7 @@ export const Modal:React.FC<ModalProps> = ({
         <>
             <div
                 ref={overlayRef}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 "
                 onClick={closeModal}
                 aria-hidden="true"
             ></div>
@@ -49,9 +49,9 @@ export const Modal:React.FC<ModalProps> = ({
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-title"
-                className="fixed inset-0 flex items-center justify-center z-50 "
+                className="fixed inset-0 flex items-center justify-center z-50  "
             >
-                <div className="bg-gray-100 rounded-lg shadow-lg p-6 w-auto">
+                <div className="bg-gray-100 rounded-lg shadow-lg p-6 w-auto max-h-40 overflow-y-auto ">
                     <div className="flex justify-between items-center mb-4 border-b border-gray-400 pb-2">
                         <h2
                             id="modal-title"

@@ -1,95 +1,78 @@
 import { useForm } from "react-hook-form"
-import { InputCollapse, Input, InputSelect } from "../../shared"
+import { InputCollapse, Input, InputSelect, TextArea } from "../../shared"
 export const InputsPage = () => {
     const { register, formState: { errors } } = useForm<{name:string}>()
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-row justify-center items-center gap-2">
                 <Input 
-                    register={register}
-                    errors={errors}
+
+
                     name="name"
                 />
                 <Input 
                     variant="inp-filled"
                     disabled
-                    register={register}
-                    errors={errors}
+                   
                     name="name"
                 />
                 <Input 
                     label="Label"
                     placeholder="Placeholder"
                     variant="inp-filled"
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
                 <Input 
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
                 <Input 
                     variant="inp-filled"
                     disabled
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
                 <Input 
                     label="Label"
                     placeholder="Placeholder"
                     variant="inp-filled"
-                    register={register}
-                    errors={errors}
+
                     name="name"
                 />
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
                 <Input 
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
                 <Input 
                     variant="inp-filled"
                     disabled
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
                 <Input 
                     label="Label"
                     placeholder="Placeholder"
                     variant="inp-filled"
-                    register={register}
-                    errors={errors}
                     name="name"
                 />
             </div>
             <div className="flex flex-row justify-center items-center gap-2">
                 <Input 
                     variant="inp-outline"
-                    register={register}
-                    errors={errors}
+
                     name="name"
                 />
                 <Input 
                     variant="inp-outline"
                     disabled
-                    register={register}
-                    errors={errors}
+
                     name="name"
                 />
                 <Input 
                     label="Label"
                     placeholder="Placeholder"
                     variant="inp-outline"
-                    register={register}
-                    errors={errors}
+
                     name="name"
                 />
             </div>
@@ -113,13 +96,12 @@ export const InputsPage = () => {
                         { id: 3, name: 'Option 3' },
                     ]}
                     variant="inp-outline"                                    
-                    // name="name"
+                    name="name2"
                 />
                 <InputSelect 
                     label="Nombres"
-                    placeholder="Placeholder"     
-
-                    // name="name"
+                    placeholder="Placeholder"                         
+                    name="name1"
                     data={[
                         { id: 1, name: 'Option 1' },
                         { id: 2, name: 'Option 2' },
@@ -145,8 +127,8 @@ export const InputsPage = () => {
                         { id: 2, name: 'Option 2' },
                         { id: 3, name: 'Option 3' },
                     ]}
-                    variant="inp-outline"                                    
-                    // name="name"
+                    // variant="inp-outline"                                    
+                    name="name3"
                 />
                 <InputSelect 
                     label="Nombres"
@@ -165,9 +147,18 @@ export const InputsPage = () => {
 
                     ]}
                     variant="inp-filled"
+                    name="name4"
                 />
             </div>
-      
+            <div className="w-full">
+                <TextArea 
+                    label="Label"
+                    placeholder="Placeholder"
+                    rows={4}
+                    variant="inp-filled"
+                    name="name"
+                />
+            </div>
         </div>
     )
 }

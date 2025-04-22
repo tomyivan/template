@@ -7,3 +7,4 @@ export { TablePage } from "./table/Table.page";
 export { ModalPage } from "./components/Modal.page";
 export { AlertPage } from "./components/Alert.page";
 export { EventsPage } from "./eventos/Events.page";
+export { CardPage } from "./card/Card.page";

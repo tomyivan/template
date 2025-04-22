@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, InputSelect } from "../../shared";
 import { Modal } from "../../components";
-
+import { ScrollableDropdown } from "../../shared/buttons/ScrollableDropdown.shared";
 export const ModalPage = () => {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => {
@@ -16,6 +16,7 @@ export const ModalPage = () => {
                 title="Modal Title"
                 
             >
+                {/* <ScrollableDropdown /> */}
                 <InputSelect
                     data={[
                         { id: "1", name: "Option 1" },
@@ -24,7 +25,8 @@ export const ModalPage = () => {
                     ]}
                     label="Select Option"
                     placeholder="Select an option"
-                    variant="inp-normal"                    
+                    variant="inp-normal"    
+                    name="selectOption"             
                 />
             </ Modal>
             <div className="flex justify-center mt-8">

@@ -20,6 +20,10 @@ export const SideBarContent= ():SideBarList[]  => [
         title: 'Eventos',
         icon: <CalendarDays />,
         link: '/eventos',
+    },{
+        title: 'Tarjetas',
+        icon: <Box />,
+        link: '/tarjetas',
     },
     {
         title: 'Componentes',

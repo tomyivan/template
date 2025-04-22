@@ -1,8 +1,8 @@
 import { UseFormRegister, FieldValues, RegisterOptions }  from "react-hook-form";
-interface InputProps<T extends FieldValues> {
+interface TextAreaProps<T extends FieldValues> {
     placeholder?: string;
     label?: string;
-    type?: string;
+    rows?: number;  
     variant?: 'inp-outline' | 'inp-filled' | 'inp-normal';
     disabled?: boolean;
     register?: UseFormRegister<T>;
@@ -13,12 +13,12 @@ interface InputProps<T extends FieldValues> {
         message?: string;
     };
     className?: string;
-    onChange?: (e: HTMLInputElement) => void;
+    onChange?: (e: HTMLTextAreaElement) => void;
 }
-export const Input=< T extends FieldValues >  ({
+export const TextArea=< T extends FieldValues >  ({
     placeholder,
+    rows = 4,
     label,
-    type = 'text',
     variant = 'inp-normal',
     disabled = false,
     register,
@@ -27,26 +27,27 @@ export const Input=< T extends FieldValues >  ({
     errors,
     className,
     onChange
-}: InputProps< T >) => {
+}: TextAreaProps< T >) => {
     return (
         <div className="w-full">
             {
                 label && (
-                    <label className={`block  text-gray-700 font-semibold mb-2 ${ errors?.isValid && 'text-red-500'}`} htmlFor={String(name)}>
+                    <label className={`block  text-gray-700 font-semibold mb-2 ${errors?.isValid && 'text-red-500'}`} htmlFor={String(name)}>    
                         {label}
                     </label>
                 )
             }
-            <input 
-                type={type}
-                className={`${variant} ${ disabled && 'cursor-not-allowed bg-gray-200 opacity-40'} ${errors?.isValid && '!border-red-500'} w-full ${ className }`}
+            <textarea 
+                rows={rows}
+                className={`${variant} !h-auto ${ disabled && 'cursor-not-allowed bg-gray-200 opacity-40'} ${ errors?.isValid && '!border-red-500'} w-full ${ className }`}
                 placeholder={placeholder}
                 disabled = {disabled}
+                id={String(name)}
                 {...(register ? register(name as any, options as any) : {})}
                 autoComplete="off"                
-                onChange={ onChange && ((e) => onChange(e.target as HTMLInputElement))}
+                onChange={ onChange && ((e) => onChange(e.target as HTMLTextAreaElement))}
             />       
-            {   errors?.isValid && <small className="text-red-600 font-semibold">{ !errors?.message || errors?.message === ''? `Este campo es requerido` : errors?.message}</small>}
+            {errors?.isValid && <small className="text-red-600 font-semibold">{ errors?.message === ''? `Este campo es requerido` : errors?.message}</small>}
         </div>
     )
 }

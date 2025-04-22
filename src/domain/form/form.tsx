@@ -8,3 +8,20 @@ export interface FormTest {
     confirmPassword: string;
     category: DataSelect
 }
+export interface FormTestDefault {
+    id2: number;
+    name2: string;
+    email2: string;
+    password2: string;
+    confirmPassword2: string;
+    category2: DataSelect
+}
+export interface FormTestSelect {
+    id3: number;
+    name3: string;
+    email3: string;
+    password3: string;
+    confirmPassword3: string;
+    category3: DataSelect
+    category32: DataSelect
+}

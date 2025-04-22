@@ -10,3 +10,4 @@ export { Alert } from "./alert/Alert.component";
 export { ToastContainer } from "./alert/Toast.component";
 export { RightBar } from "./rightBar/RightBar.componentes";
 export { Calendar } from "./calendar/Calendar.component";
+export { Card } from "./card/Card.components";
