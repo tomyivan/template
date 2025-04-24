@@ -38,9 +38,9 @@ export const InputSelect = <T extends FieldValues>({
     useEffect(()=> {
         setInputValue(value?.name ?? "")
     },[value])
-    useEffect(() => {
+    useEffect(() => {        
         const handleClickOutside = (event: MouseEvent) => {    
-            if (divRef.current && !divRef.current.contains(event.target as Node)) {
+            if (divRef.current && !divRef.current.contains(event.target as Node) ) {
                 setIsOpen(false);
             }
         };
@@ -120,7 +120,9 @@ export const InputSelect = <T extends FieldValues>({
             window.removeEventListener("resize", updateDropdownPosition);
         };
     }, [isOpen]);
+
     const handleBlur = () => {
+        if ( dropdownRef.current ) return;   
         const selectedItem = filteredData.find((item) => item.name.toLowerCase() === ( (inputValue).toLowerCase() ));
         if(!selectedItem?.id){ 
             setInputValue('');

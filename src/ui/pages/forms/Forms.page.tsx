@@ -279,14 +279,8 @@ export const FormPage = () => {
                                 placeholder="Placeholder"   
                                 variant="inp-filled"                                          
                                 name="category32"
-                                // errors={{
-                                    // isValid: Boolean(errors3.category32)
-                                // }}
                                 control={control3}
                                 data={dataCategory32} 
-                                // options={{
-                                //     required: 'Campo requerido',                       
-                                // }}
                             />  
                         </div>
                     </Form>
