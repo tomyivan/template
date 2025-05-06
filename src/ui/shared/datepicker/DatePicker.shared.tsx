@@ -102,15 +102,6 @@ export const DatePicker = ({
           <div className="flex justify-between p-2 border-t">
             <button
               className="text-blue-500 hover:text-blue-700"
-              onClick={() => {
-                setDateRange({ start: null, end: null });
-                onChange({ start: null, end: null });
-              }}
-            >
-              Limpiar
-            </button>
-            <button
-              className="text-blue-500 hover:text-blue-700"
               onClick={() => handleShow(false)}
             >
                Listo
