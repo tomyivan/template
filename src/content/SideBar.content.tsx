@@ -1,4 +1,4 @@
-import { AlertCircle, Box, CalendarDays, Component, FormInput, Home, Table2 } from "lucide-react"
+import { AlertCircle, Box, Calendar, CalendarDays, Component, FormInput, Home, Table2 } from "lucide-react"
 import { SideBarList } from "../domain"
 import dayjs from "dayjs"
  const date =  {
@@ -48,6 +48,11 @@ export const SideBarContent= ():SideBarList[]  => [
                 title: 'Alerta',
                 icon: <AlertCircle />,
                 link: '/componentes/alerta',
+            },
+            {
+                title: 'Date Picker',
+                icon: <Calendar />,
+                link: '/componentes/datePicker',
             },
         ]
     },

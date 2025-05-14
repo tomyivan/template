@@ -1,4 +1,4 @@
-import { DatePicker } from "../../shared"
+import { DatePickerRange } from "../../shared"
 import { useEffect, useRef, useState } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import { optionsFilter } from "./optionsDateFilter"
@@ -70,7 +70,7 @@ export const DateFilter = memo(() => {
                 {dateRange.end ? dateRange.end.format("DD/MM/YYYY") : "Fecha Fin"}
             </span>
             </div>
-            <DatePicker 
+            <DatePickerRange
                 initialRange={dateRange}
                 onChange={(range) => setDateRange(range as any)}
                 show={showDatePicker}

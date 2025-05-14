@@ -1,16 +1,16 @@
+import { Dayjs } from "dayjs";
+
 interface RenderCellsProps {
     currentMonth: any;
-    dateRange: { start: any; end: any };
+    dateDay: {day: Dayjs  | null};
     handleDateClick: (date: any) => void;
-    handleMouseEnter: (date: any) => void;
-    isInRange: (date: any) => boolean;
+    filter?: ( date: Dayjs ) => boolean;
 } 
 export const RenderCells:React.FC<RenderCellsProps> = ({
     currentMonth,
-    dateRange,
+    dateDay,
     handleDateClick,
-    handleMouseEnter,
-    isInRange
+    filter
 }) => {
     const monthStart = currentMonth.startOf("month");
     const monthEnd = currentMonth.endOf("month");
@@ -23,26 +23,22 @@ export const RenderCells:React.FC<RenderCellsProps> = ({
     while (day.isSameOrBefore(endDay)) {
       for (let i = 0; i < 7; i++) {
         const cloneDay = day;
-        const isSelectedStart = dateRange.start?.isSame(cloneDay, "day");
-        const isSelectedEnd = dateRange.end?.isSame(cloneDay, "day");
-        const isInRangeDay = isInRange(cloneDay);
+        const isSelectedDay = dateDay.day?.isSame(cloneDay, "day");
         const isCurrentMonth = cloneDay.isSame(currentMonth, "month");
-
+        const isFiltered = filter ? filter(cloneDay) : false;
         days.push(
           <div
             key={day.toString()}
             className={`relative p-2 text-center cursor-pointer 
-              ${!isCurrentMonth ? "text-gray-400" : ""}
-                ${isSelectedStart && "rounded-l-2xl"}
-                ${isSelectedEnd && "rounded-r-2xl" }
-              ${isSelectedStart || isSelectedEnd ? "bg-blue-400 text-white" : ""}
-              ${isInRangeDay && !isSelectedStart && !isSelectedEnd ? "bg-blue-100" : ""}
-              hover:bg-blue-200`}
-            onClick={() => handleDateClick(cloneDay)}
-            onMouseEnter={() => handleMouseEnter(cloneDay)}
+              ${!isCurrentMonth ? "text-gray-500" : "text-gray-800"}
+                ${isSelectedDay && "rounded-2xl"}
+              ${isSelectedDay ? "bg-blue-400 text-white" : ""}
+              ${isFiltered ? "bg-gray-200 text-gray-400" : "hover:bg-blue-200"}              `}
+            onClick={() => !isFiltered && handleDateClick(cloneDay)}
           >
-            <span className={`${(isSelectedStart || isSelectedEnd) ? "font-bold" : ""}`}>
-              {day.format("D")}
+            <span className={`${(isSelectedDay) ? "font-bold" : ""}
+              ${isFiltered ? "text-gray-400" : ""} `}>
+              {day.format("D") } 
             </span>
           </div>
         );
@@ -50,7 +46,7 @@ export const RenderCells:React.FC<RenderCellsProps> = ({
       }
       rows.push(
         <div key={day.toString()} className="grid grid-cols-7">
-          {days}
+          {days} 
         </div>
       );
       days = [];

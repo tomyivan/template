@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 
 export const RenderDays = () => {
-    const days = [];
     const weekdays = dayjs.weekdaysMin();
 
     return (

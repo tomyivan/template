@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldValues, RegisterOptions }  from "react-hook-form";
+import type { UseFormRegister, FieldValues, RegisterOptions }  from "react-hook-form";
 interface InputProps<T extends FieldValues> {
     placeholder?: string;
     label?: string;
@@ -14,6 +14,7 @@ interface InputProps<T extends FieldValues> {
     };
     className?: string;
     onChange?: (e: HTMLInputElement) => void;
+    value?: string | number;
 }
 export const Input=< T extends FieldValues >  ({
     placeholder,
@@ -26,8 +27,10 @@ export const Input=< T extends FieldValues >  ({
     options,
     errors,
     className,
-    onChange
+    onChange,
+    value
 }: InputProps< T >) => {
+    const registerProps = register ? register(name as any, options as any) : { onChange: undefined };
     return (
         <div className="w-full">
             {
@@ -43,8 +46,12 @@ export const Input=< T extends FieldValues >  ({
                 placeholder={placeholder}
                 disabled = {disabled}
                 {...(register ? register(name as any, options as any) : {})}
-                autoComplete="off"                
-                onChange={ onChange && ((e) => onChange(e.target as HTMLInputElement))}
+                autoComplete="off"       
+                value={value}         
+                onChange={(e) => {
+                    registerProps.onChange && registerProps.onChange(e); // primero llama al onChange de register (muy importante)
+                    onChange && onChange(e.target as HTMLInputElement);   // luego llama a tu propio onChange si existe
+                }}
             />       
             {   errors?.isValid && <small className="text-red-600 font-semibold">{ !errors?.message || errors?.message === ''? `Este campo es requerido` : errors?.message}</small>}
         </div>

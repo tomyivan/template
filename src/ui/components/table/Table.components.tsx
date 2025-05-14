@@ -59,7 +59,7 @@ export const Table:React.FC<MainTableProps<any>> = React.memo(({
         state:{
             sorting,
             globalFilter: search,
-            columnFilters: filterColumnsState || [],
+            columnFilters: filterColumnsState,
         },
         onSortingChange: setSorting, 
         // onColumnFiltersChange: setColumnFilters,

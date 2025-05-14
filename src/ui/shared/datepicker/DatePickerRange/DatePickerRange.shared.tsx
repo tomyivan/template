@@ -6,9 +6,9 @@ import isBetween from "dayjs/plugin/isBetween";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 
-import { HeaderDatePicker } from "./Header.shared";
-import { RenderDays } from "./Day.shared";
-import { RenderCells } from "./Cell.shared";
+import { HeaderDatePicker } from "../Header.shared";
+import { RenderDays } from "../Day.shared";
+import { RenderCellsRange } from "./Cell.shared";
 
 // Extender dayjs con los plugins necesarios
 dayjs.extend(isSameOrBefore);
@@ -25,24 +25,28 @@ interface DateRange {
 interface DateRangePickerProps {
   onChange: (range: DateRange) => void;
   initialRange?: DateRange;
-  handleShow: (open:boolean) => void;
+  handleShow?: (open:boolean) => void;
+  handleSelect?: (date: DateRange) => void;
   show?: boolean;
+
 }
 
-export const DatePicker = ({ 
+export const DatePickerRange = ({ 
     onChange, 
     initialRange, 
     handleShow,
-    show = false
+    show = false,
+    handleSelect
 }: DateRangePickerProps) => {
   const [currentMonth, setCurrentMonth] = useState(dayjs());
   const [dateRange, setDateRange] = useState<DateRange>(initialRange || { start: null, end: null });
   const [hoverDate, setHoverDate] = useState<Dayjs | null>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if( !handleShow ) return;
     const handleClickOutside = (event: MouseEvent) => {
       if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        handleShow(false);
+        handleShow?.(false);
       }
     };
 
@@ -86,13 +90,13 @@ export const DatePicker = ({
   return (
     <div ref={pickerRef} className="relative">
       {show && (
-        <div className="absolute z-10 mt-1 bg-gray-100 text-gray-500 rounded-lg shadow-lg border p-2 w-64">
+        <div className="absolute z-10 mt-1 bg-gray-100 text-gray-500 rounded-lg shadow-lg border p-2 w-64 capitalize">
           <HeaderDatePicker 
             currentMonth={currentMonth}
             setCurrentMonth={setCurrentMonth}
           />
           {<RenderDays />}
-          <RenderCells 
+          <RenderCellsRange
             currentMonth={currentMonth}
             dateRange={dateRange}
             handleDateClick={handleDateClick}
@@ -101,14 +105,26 @@ export const DatePicker = ({
             />
           <div className="flex justify-between p-2 border-t">
             <button
-              className="text-blue-500 hover:text-blue-700"
-              onClick={() => handleShow(false)}
+              className="text-blue-500 hover:text-blue-700 cursor-pointer"
+              onClick={() => {
+                handleSelect?.(dateRange) 
+                handleShow?.(false);
+              }}
             >
                Listo
             </button>
+            { handleShow && 
+              <button
+                className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                onClick={() => handleShow?.(false)}
+              >
+                Cancelar
+              </button>
+            }
           </div>
         </div>
       )}
+
     </div>
   );
 };
